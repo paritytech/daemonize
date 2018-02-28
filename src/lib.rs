@@ -112,7 +112,8 @@ pub enum DaemonizeError {
 }
 
 fn errno() -> Errno {
-    io::Error::last_os_error().raw_os_error().unwrap()
+    io::Error::last_os_error().raw_os_error()
+        .expect("last_os_error produces only OS errors hence raw_os_error cannot be None")
 }
 
 impl DaemonizeError {
